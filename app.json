@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "myfinnances",
+    "slug": "myfinnances",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "myfinnances"
+}
