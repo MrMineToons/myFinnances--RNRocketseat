@@ -1,0 +1,12 @@
+*** CONSTRUIR E CUIDAR DO PROJETO ***
+- Expo(https://expo.dev)
+
+
+*** DEIXAR BONITO E FUNCIONAL ***
+- Styled Components (https://styled-components.com/docs)
+- React-Native-Gesture-Handler (https://docs.swmansion.com/react-native-gesture-handler/docs/)
+ps. Não usar pois causa problema com mal funcionamento dos botões(https://github.com/software-mansion/react-native-gesture-handler/issues/139#issuecomment-790329701)... Esperando atualização.
+- Yup (https://github.com/jquense/yup)
+
+*** ARMAZENAR DADOS DE FORMA PERSISTENTE ***
+- AsyncStorage(https://react-native-async-storage.github.io/async-storage/docs/usage/)

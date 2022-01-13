@@ -44,7 +44,7 @@ type RegisterNavigationProps = BottomTabNavigationProp<
 
 
 export function Register(){
-  const dataKey = '@gofinances:transactions';
+
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
 
@@ -55,7 +55,6 @@ export function Register(){
 
 
   const navigation = useNavigation<RegisterNavigationProps>();
-
   const {
     control,
     handleSubmit,
@@ -94,6 +93,7 @@ export function Register(){
     }
 
     try {
+      const dataKey = '@gofinances:transactions';
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 
@@ -120,20 +120,22 @@ export function Register(){
   }
 
 // useEffect(() => {
+//   const dataKey = '@gofinances:transactions';
+//
 //   // ARMAZENA OS DADOS NO DISPOSITIVO DO USUARIO
-//   async function loadData(){
-//     const data = await AsyncStorage.getItem(dataKey);
-//     console.log(JSON.parse(data!));
-//   }
-//
-//   loadData();
-//
-//   // REALIZA LIMPEZA NOS DADOS DO DISPOSITIVO
-//   // async function removeAll() {
-//   //   await AsyncStorage.removeItem(dataKey);
+//   // async function loadData(){
+//   //   const data = await AsyncStorage.getItem(dataKey);
+//   //   console.log(JSON.parse(data!));
 //   // }
 //   //
-//   // removeAll();
+//   // loadData();
+//
+//   // REALIZA LIMPEZA NOS DADOS DO DISPOSITIVO
+//   async function removeAll() {
+//     await AsyncStorage.removeItem(dataKey);
+//   }
+//
+//   removeAll();
 // }, []);
 
 
