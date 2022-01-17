@@ -14,4 +14,5 @@ ps. Não usar pois causa problema com mal funcionamento dos botões(https://gith
 - AsyncStorage(https://react-native-async-storage.github.io/async-storage/docs/usage/)
 
 *** CARREGAMENTO DA TELA ***
-- { ActivityIndicator } from 'react-native'; Para carregamento da tela.
+- { ActivityIndicator } from 'react-native'; Para carregamento da tela(Juntamente do isLoading).
+- import { useFocusEffect } from '@react-navigation/native'; Para quando mudar de telas atualizar informações.

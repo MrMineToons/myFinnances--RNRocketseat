@@ -1,4 +1,4 @@
-import React , { useEffect, useState, useCallback } from 'react';
+import React , { useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native';
 import { VictoryPie } from 'victory-native';
