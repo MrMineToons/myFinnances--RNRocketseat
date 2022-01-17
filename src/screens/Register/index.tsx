@@ -34,7 +34,11 @@ interface FormData {
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome é Obrigatório'),
-  amount: Yup.number().typeError('Informe um valor númerico').positive('O valor nao pode ser negativo').required('O valor é Obrigatório')
+  amount: Yup
+  .number()
+  .typeError('Informe um valor númerico')
+  .positive('O valor nao pode ser negativo')
+  .required('O valor é Obrigatório')
 });
 
 type RegisterNavigationProps = BottomTabNavigationProp<

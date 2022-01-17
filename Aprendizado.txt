@@ -8,6 +8,7 @@
 ps. Não usar pois causa problema com mal funcionamento dos botões(https://github.com/software-mansion/react-native-gesture-handler/issues/139#issuecomment-790329701)... Esperando atualização.
 - Yup (https://github.com/jquense/yup)
 - RFValue (import { RFValue } from 'react-native-responsive-fontsize';)
+- date-fns (https://date-fns.org). Para lidar com DATAS
 
 *** ARMAZENAR DADOS DE FORMA PERSISTENTE ***
 - AsyncStorage(https://react-native-async-storage.github.io/async-storage/docs/usage/)
