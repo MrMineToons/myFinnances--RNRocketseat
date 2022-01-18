@@ -10,6 +10,7 @@ ps. Não usar pois causa problema com mal funcionamento dos botões(https://gith
 - RFValue (import { RFValue } from 'react-native-responsive-fontsize';)
 - date-fns (https://date-fns.org). Para lidar com DATAS
 - react-native-svg-transformer(https://github.com/kristerkari/react-native-svg-transformer) - Para usar formatos SVG
+- Babel Plugin Inline DotEnv(https://github.com/brysgo/babel-plugin-inline-dotenv) para guardar informações sensiveis em um .env
 
 *** ARMAZENAR DADOS DE FORMA PERSISTENTE ***
 - AsyncStorage(https://react-native-async-storage.github.io/async-storage/docs/usage/)
