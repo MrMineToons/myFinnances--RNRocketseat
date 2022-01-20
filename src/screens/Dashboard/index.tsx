@@ -8,6 +8,7 @@ import { useTheme } from 'styled-components';
 import { HighlightCard } from '../../components/HighlightCard';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
+import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
@@ -48,21 +49,27 @@ export function Dashboard(){
   const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData);
 
   const theme = useTheme();
+  const { signOut, user } = useAuth();
 
   function getLastTransactionDate(
     collection: DataListProps[],
     type: 'positive' | 'negative'
   ){
+    const collectionFilttered = collection
+    .filter((transaction) => transaction.type === type);
+
+    if(collectionFilttered.length === 0)
+    return "0";
+
     const lastTransaction = new Date(
-    Math.max.apply(Math, collection
-    .filter((transaction) => transaction.type === type)
+    Math.max.apply(Math, collectionFilttered
     .map((transaction) => new Date(transaction.date).getTime())));
 
     return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString('pt-BR', { month: 'long'})}`;
   } // Fim da Função
 
   async function loadTransactions(){
-    const dataKey = '@gofinances:transactions';
+    const dataKey = `@gofinances:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
     let entriesTotal = 0;
@@ -99,7 +106,9 @@ export function Dashboard(){
 
     const lastTransactionEntries = getLastTransactionDate(transactions, 'positive');
     const lastTransactionExpensives = getLastTransactionDate(transactions, 'negative');
-    const totalInterval = `01 a ${lastTransactionExpensives}`;
+    const totalInterval = lastTransactionExpensives === '0'
+    ? 'Não há transações'
+    : `01 a ${lastTransactionExpensives}`;
 
     // console.log(lastTransactionEntriesFormatted);
 
@@ -110,14 +119,18 @@ export function Dashboard(){
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: `Última entrada dia ${lastTransactionEntries}`,
+        lastTransaction: lastTransactionEntries === '0'
+        ? 'Não há transações'
+        : `Última entrada dia  ${lastTransactionEntries}`,
       },
       expensives: {
         amount: expensiveTotal.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL'
         }),
-        lastTransaction: `Última saída dia ${lastTransactionExpensives}`,
+        lastTransaction: lastTransactionExpensives === '0'
+        ? 'Não há transação'
+        : `Última saída dia ${lastTransactionExpensives}`,
       },
       total: {
         amount: total.toLocaleString('pt-BR', {
@@ -133,7 +146,6 @@ export function Dashboard(){
 
   useEffect(() => {
     loadTransactions();
-
     // const dataKey = '@gofinances:transactions';
     // AsyncStorage.removeItem(dataKey);
   },[]);
@@ -157,15 +169,15 @@ export function Dashboard(){
         <UserWrapper>
           <UserInfo>
             <Photo
-              source={{ uri: 'https://avatars.githubusercontent.com/u/68707610?v=4' }}
+              source={{ uri: user.photo }}
             />
             <User>
               <UserGreeting>Ola, </UserGreeting>
-              <UserName>Fabricio</UserName>
+              <UserName>{user.name}</UserName>
             </User>
           </UserInfo>
           <GestureHandlerRootView>
-            <LogoutButton onPress={() => console.log('oi')}>
+            <LogoutButton onPress={signOut}>
               <Icon name="power"/>
             </LogoutButton>
           </GestureHandlerRootView>

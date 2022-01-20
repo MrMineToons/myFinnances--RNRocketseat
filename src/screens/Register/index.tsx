@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { useAuth } from '../../hooks/auth';
 import uuid from 'react-native-uuid';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
@@ -26,7 +27,6 @@ import {
   TransactionTypes
 } from './styles';
 
-
 interface FormData {
   name: string;
   amount: string;
@@ -41,6 +41,7 @@ const schema = Yup.object().shape({
   .required('O valor é Obrigatório')
 });
 
+
 type RegisterNavigationProps = BottomTabNavigationProp<
   AppRoutesParamList,
   "Cadastrar"
@@ -48,15 +49,13 @@ type RegisterNavigationProps = BottomTabNavigationProp<
 
 
 export function Register(){
-
   const [transactionType, setTransactionType] = useState('');
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
-
+  const { user } = useAuth();
   const [category, setCategory] = useState({
     key: 'category',
     name: 'Categoria'
   });
-
 
   const navigation = useNavigation<RegisterNavigationProps>();
   const {
@@ -71,11 +70,9 @@ export function Register(){
   function handleCloseSelectCategoryModal(){
     setCategoryModalOpen(false);
   }
-
   function handleOpenSelectCategoryModal(){
     setCategoryModalOpen(true);
   }
-
   function handleTransactionsTypeSelect(type: 'positive' | 'negative'){
     setTransactionType(type);
   }
@@ -97,7 +94,7 @@ export function Register(){
     }
 
     try {
-      const dataKey = '@gofinances:transactions';
+      const dataKey = `@gofinances:transactions_user:${user.id}`;
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 
